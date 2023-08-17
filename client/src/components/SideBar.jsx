@@ -38,7 +38,7 @@ const SideBar = ({ onClickChangeTheme, showExpanded }) => {
           {/* generate all buttons but the dark theme button */}
           {SideBarButtons.map(({ ButtonIcon, buttonText, href }) => {
             return (
-              <ListItem disablePadding>
+              <ListItem disablePadding key={buttonText}>
                 <ListItemButton href={href}>
                   <ListItemIcon>
                     <ButtonIcon />

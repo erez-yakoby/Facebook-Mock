@@ -61,6 +61,7 @@ const AddPost = () => {
           color={"text.primary"}
           borderRadius={5}
           p={2}
+          m={1}
         >
           <Typography variant="h5" textAlign="center">
             Create post

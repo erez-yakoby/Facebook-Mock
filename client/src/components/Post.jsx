@@ -20,43 +20,35 @@ const StyledModal = styled(Modal)({
   alignItems: "center",
 });
 
-const Post = () => {
+const Post = ({ userName, profileImgUrl, content, mainImgUrl, date }) => {
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
   return (
     <>
       <Card sx={{ mb: 5 }}>
         <CardHeader
           avatar={
-            <Avatar
-              sx={{ bgcolor: "lightblue" }}
-              aria-label="UserImage"
-              src="/images/erez.jpg"
-            >
+            <Avatar sx={{ bgcolor: "lightblue" }} src={profileImgUrl}>
               R
             </Avatar>
           }
           action={
-            <IconButton aria-label="settings">
+            <IconButton>
               <MoreVert />
             </IconButton>
           }
-          title="Erez Yakoby"
-          subheader="September 14, 2016"
+          title={userName}
+          subheader={date}
         />
         <CardMedia
           component="img"
-          image="/images/erez.jpg"
+          image={mainImgUrl}
           height="300"
           alt="Post image"
-          onClick={(e) =>
-            setDisplayImg({ isDisplayed: true, src: "/images/erez.jpg" })
-          }
+          onClick={(e) => setDisplayImg({ isDisplayed: true, src: mainImgUrl })}
         />
         <CardContent>
           <Typography variant="body3" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+            {content}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -64,7 +56,7 @@ const Post = () => {
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite color="error" />}
           />
-          <IconButton aria-label="share post">
+          <IconButton>
             <Share />
           </IconButton>
         </CardActions>

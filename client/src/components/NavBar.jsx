@@ -59,7 +59,7 @@ const NavBar = () => {
             p: 0,
           }}
         >
-          Lama Dev
+          Facebook
         </Button>
         <Pets sx={{ display: { xs: "block", sm: "none" } }}></Pets>
         <StyledSearch>
