@@ -2,8 +2,10 @@ import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
 import { useCallback, useState } from "react";
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile";
+import Authentication from "./pages/Login";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 
 const options = {
@@ -22,16 +24,6 @@ const options = {
 
 function App() {
   const baseURL = "http://localhost:3080";
-  // const getPosts = useCallback(() => {
-  //   axios
-  //     .get(options)
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
   const getPosts = useCallback(() => {
     axios
       .get(
@@ -46,6 +38,7 @@ function App() {
   }, []);
 
   const [appTheme, setAppTheme] = useState("light");
+  const [isUserLogged, setisUserLogged] = useState(true);
 
   const curAppTheme = createTheme({
     palette: {
@@ -59,15 +52,22 @@ function App() {
 
   return (
     <ThemeProvider theme={curAppTheme}>
-      <Box bgcolor={"background.default"} color={"text.primary"}>
-        <NavBar />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home handleChangeTheme={getPosts} />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </Router>
-      </Box>
+      {isUserLogged ? (
+        <Box bgcolor={"background.default"} color={"text.primary"}>
+          <NavBar />
+          <Router>
+            <Routes>
+              <Route
+                path="/"
+                element={<Home handleChangeTheme={handleChangeTheme} />}
+              />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </Router>
+        </Box>
+      ) : (
+        <Authentication />
+      )}
     </ThemeProvider>
   );
 }
