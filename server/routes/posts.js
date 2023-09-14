@@ -19,17 +19,20 @@ router.post("/", async (req, res) => {
 
 // get feed posts
 router.get("/feed", async (req, res) => {
+  // TODO: add index on userId in Post schema
   try {
-    // following is all the user from which i want to see posts in my feed
+    // following is all the users from which i want to see posts in my feed
     const curUser = await User.findById(req.body.userId);
     const following = curUser.following;
     following.push(req.body.userId);
-    console.log(following);
+
+    // fetching the filtered posts
     const relevantPosts = await Post.find({ userId: { $in: following } });
     res.status(200).json(relevantPosts);
   } catch (error) {
     console.log(error);
-    res.send("post not found");
+    res.send("error");
+
   }
 });
 
