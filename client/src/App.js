@@ -10,7 +10,7 @@ import axios from "axios";
 
 function App() {
   const [appTheme, setAppTheme] = useState("light");
-  const [isUserLogged, setisUserLogged] = useState(true);
+  const [isUserLogged, setisUserLogged] = useState(false);
 
   const curAppTheme = createTheme({
     palette: {

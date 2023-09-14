@@ -1,28 +1,14 @@
-import { useTheme } from "@emotion/react";
 import {
-  CalendarMonth,
-  Favorite,
-  FavoriteBorder,
-  Share,
-} from "@mui/icons-material";
-import {
-  Avatar,
   Box,
   Button,
-  ButtonGroup,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Checkbox,
-  IconButton,
   Modal,
   TextField,
   Typography,
   styled,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
 
 const StyledBox = styled(Box)({
   display: "flex",
@@ -37,6 +23,17 @@ const StyledModal = styled(Modal)({
 
 const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const login = useCallback(() => {
+    axios
+      .post(`${SERVER_URL}/api/auth/login`)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
       <StyledBox>
@@ -75,6 +72,8 @@ const Login = () => {
           </Button>
         </StyledBox>
       </StyledBox>
+
+      {/* register modal */}
       <StyledModal
         open={isModalOpen}
         onClose={(e) => setIsModalOpen(false)}

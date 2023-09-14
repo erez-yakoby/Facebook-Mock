@@ -3,13 +3,12 @@ import React, { useCallback, useEffect } from "react";
 import Post from "./Post";
 import Posts from "../data/Posts";
 import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
 
 const Feed = () => {
-  const serverURL = "http://127.0.0.1:3080";
-
   const getPosts = useCallback(() => {
     axios
-      .get(`${serverURL}/`)
+      .get(`${SERVER_URL}/`)
       .then((response) => {
         console.log(response.data);
       })
