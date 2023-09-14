@@ -11,8 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
+import { format } from "timeago.js";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -20,14 +23,30 @@ const StyledModal = styled(Modal)({
   alignItems: "center",
 });
 
-const Post = ({ userName, profileImgUrl, content, mainImgUrl, date }) => {
+const Post = ({ userId, content, imageUrl, likes, timeStamp }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await axios
+        .get(`${SERVER_URL}/api/users/${userId}`)
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchUser();
+  }, []);
   return (
     <>
       <Card sx={{ mb: 5 }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: "lightblue" }} src={profileImgUrl}>
+            <Avatar sx={{ bgcolor: "lightblue" }} src={PF + user.profileImg}>
               R
             </Avatar>
           }
@@ -36,15 +55,15 @@ const Post = ({ userName, profileImgUrl, content, mainImgUrl, date }) => {
               <MoreVert />
             </IconButton>
           }
-          title={userName}
-          subheader={date}
+          title={user.username}
+          subheader={format(timeStamp)}
         />
         <CardMedia
           component="img"
-          image={mainImgUrl}
+          image={imageUrl}
           height="300"
           alt="Post image"
-          onClick={(e) => setDisplayImg({ isDisplayed: true, src: mainImgUrl })}
+          onClick={(e) => setDisplayImg({ isDisplayed: true, src: imageUrl })}
         />
         <CardContent>
           <Typography variant="body3" color="text.secondary">

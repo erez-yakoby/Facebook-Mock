@@ -2,7 +2,7 @@ const Profiles = [
   {
     id: 1,
     userName: "Erez Yakoby",
-    profileImgUrl: "/images/erez.jpg",
+    profileImgUrl: "erez.jpg",
     friendsCount: 0,
   },
 ];

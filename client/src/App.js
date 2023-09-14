@@ -1,16 +1,18 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Authentication from "./pages/Login";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [appTheme, setAppTheme] = useState("light");
-  const [isUserLogged, setisUserLogged] = useState(false);
+  const [isUserLogged, setisUserLogged] = useState(true);
 
   const curAppTheme = createTheme({
     palette: {
@@ -33,7 +35,9 @@ function App() {
                 path="/"
                 element={<Home handleChangeTheme={handleChangeTheme} />}
               />
-              <Route path="/profile" element={<Profile />} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/register" element={<Register />} />
+              <Route path="/profile/:username" element={<Profile />} />
             </Routes>
           </Router>
         </Box>
