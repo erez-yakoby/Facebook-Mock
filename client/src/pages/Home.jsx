@@ -1,4 +1,3 @@
-import React from "react";
 import SideBar from "../components/SideBar";
 import RightBar from "../components/RightBar";
 import AddPost from "../components/AddPost";
@@ -16,7 +15,7 @@ const Home = ({ handleChangeTheme }) => {
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
         <Feed />
-        <RightBar />
+        {/* <RightBar /> */}
       </Stack>
       <AddPost />
     </>

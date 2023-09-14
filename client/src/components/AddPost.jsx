@@ -20,7 +20,8 @@ import {
   styled,
 } from "@mui/material";
 import React, { useState } from "react";
-
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
 const StyledModal = styled(Modal)({
   display: "flex",
   justifyContent: "center",
@@ -35,6 +36,15 @@ const UserBox = styled(Box)({
 
 const AddPost = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const addPost = async () => {
+  //   await axios.post(`${SERVER_URL}/posts`, {
+  //     userId: userId,
+  //     content:
+
+  //   })
+  // }
+
   return (
     <>
       <Tooltip
