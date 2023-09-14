@@ -10,12 +10,13 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import { Favorite, FavoriteBorder, MoreVert, Share } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, MoreVert } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
 import { SERVER_URL } from "../utils/constants";
 import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -23,15 +24,17 @@ const StyledModal = styled(Modal)({
   alignItems: "center",
 });
 
-const Post = ({ userId, content, imageUrl, likes, timeStamp }) => {
+const Post = ({ post }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
   const [user, setUser] = useState({});
+  const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(post.likes.length);
 
   useEffect(() => {
     const fetchUser = async () => {
       await axios
-        .get(`${SERVER_URL}/api/users/${userId}`)
+        .get(`${SERVER_URL}/api/users/${post.userId}`)
         .then((response) => {
           setUser(response.data);
         })
@@ -40,15 +43,27 @@ const Post = ({ userId, content, imageUrl, likes, timeStamp }) => {
         });
     };
     fetchUser();
-  }, []);
+  }, [post.userId]);
+
+  const handleLikeClick = () => {
+    if (isLiked) {
+      setLikes(likes - 1);
+    } else {
+      setLikes(likes + 1);
+    }
+    setIsLiked(!isLiked);
+  };
+
   return (
     <>
       <Card sx={{ mb: 5 }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: "lightblue" }} src={PF + user.profileImg}>
-              R
-            </Avatar>
+            <Link to={`profile/${user.username}`}>
+              <Avatar sx={{ bgcolor: "lightblue" }} src={PF + user.profileImg}>
+                R
+              </Avatar>
+            </Link>
           }
           action={
             <IconButton>
@@ -56,28 +71,30 @@ const Post = ({ userId, content, imageUrl, likes, timeStamp }) => {
             </IconButton>
           }
           title={user.username}
-          subheader={format(timeStamp)}
+          subheader={format(post.createdAt)}
         />
         <CardMedia
           component="img"
-          image={imageUrl}
+          image={PF + post.imageUrl}
           height="300"
           alt="Post image"
-          onClick={(e) => setDisplayImg({ isDisplayed: true, src: imageUrl })}
+          onClick={(e) =>
+            setDisplayImg({ isDisplayed: true, src: post.imageUrl })
+          }
         />
         <CardContent>
           <Typography variant="body3" color="text.secondary">
-            {content}
+            {post.content}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <Checkbox
             icon={<FavoriteBorder />}
             checkedIcon={<Favorite color="error" />}
+            checked={isLiked}
+            onClick={handleLikeClick}
           />
-          <IconButton>
-            <Share />
-          </IconButton>
+          <Typography ml={1}> {likes} people liked</Typography>
         </CardActions>
       </Card>
       <StyledModal
@@ -85,7 +102,12 @@ const Post = ({ userId, content, imageUrl, likes, timeStamp }) => {
         onClose={(e) => setDisplayImg({ isDisplayed: false, src: "" })}
         disableScrollLock={true}
       >
-        <img src={displayImg.src} loading="lazy" width="50%" alt="postImage" />
+        <img
+          src={PF + displayImg.src}
+          loading="lazy"
+          width="50%"
+          alt="postImage"
+        />
       </StyledModal>
     </>
   );
