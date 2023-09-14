@@ -12,6 +12,7 @@ app.use(cors());
 // routes
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
+const postRoute = require("./routes/posts");
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL);
@@ -22,12 +23,7 @@ app.use(morgan("common"));
 
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
-// app.use(logger);
-
-app.get("/", (req, res) => {
-  console.log("arrived");
-  res.send({ first: "posts" });
-});
+app.use("/api/posts", postRoute);
 
 app.listen(PORT, (error) => {
   if (!error)
@@ -36,7 +32,3 @@ app.listen(PORT, (error) => {
     );
   else console.log("Error occurred, server can't start", error);
 });
-
-// things missing:
-// hide password when sending it to mongo
-//
