@@ -5,7 +5,11 @@ const User = require("../models/User");
 // add post
 router.post("/", async (req, res) => {
   // creating the new post
-  const newPost = await new Post(req.body);
+  let post = req.body;
+  const user = await User.findById(post.userId);
+  post.username = user.username;
+  post.userProfileImg = user.profileImg;
+  const newPost = await new Post(post);
 
   // saving and responding
   try {
@@ -29,6 +33,19 @@ router.get("/feed/:userId", async (req, res) => {
     // fetching the filtered posts
     const relevantPosts = await Post.find({ userId: { $in: following } });
     res.status(200).json(relevantPosts);
+  } catch (error) {
+    console.log(error);
+    res.send("error");
+  }
+});
+
+// get user profile posts
+router.get("/profile/:username", async (req, res) => {
+  // TODO: add index on userId in Post schema
+  try {
+    // fetching the user's posts
+    const profilePosts = await Post.find({ username: req.params.username });
+    res.status(200).json(profilePosts);
   } catch (error) {
     console.log(error);
     res.send("error");

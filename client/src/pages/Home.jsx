@@ -15,7 +15,7 @@ const Home = ({ handleChangeTheme }) => {
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
         <Feed />
-        {/* <RightBar /> */}
+        <RightBar />
       </Stack>
       <AddPost />
     </>

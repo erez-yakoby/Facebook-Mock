@@ -27,23 +27,8 @@ const StyledModal = styled(Modal)({
 const Post = ({ post }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
-  const [user, setUser] = useState({});
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(post.likes.length);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      await axios
-        .get(`${SERVER_URL}/api/users/${post.userId}`)
-        .then((response) => {
-          setUser(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    fetchUser();
-  }, [post.userId]);
 
   const handleLikeClick = () => {
     if (isLiked) {
@@ -59,8 +44,11 @@ const Post = ({ post }) => {
       <Card sx={{ mb: 5 }}>
         <CardHeader
           avatar={
-            <Link to={`profile/${user.username}`}>
-              <Avatar sx={{ bgcolor: "lightblue" }} src={PF + user.profileImg}>
+            <Link to={`profile/${post.username}`}>
+              <Avatar
+                sx={{ bgcolor: "lightblue" }}
+                src={PF + post.userProfileImg}
+              >
                 R
               </Avatar>
             </Link>
@@ -70,7 +58,7 @@ const Post = ({ post }) => {
               <MoreVert />
             </IconButton>
           }
-          title={user.username}
+          title={post.username}
           subheader={format(post.createdAt)}
         />
         <CardMedia

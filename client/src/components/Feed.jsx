@@ -4,19 +4,28 @@ import Post from "./Post";
 import axios from "axios";
 import { SERVER_URL } from "../utils/constants";
 
-const Feed = () => {
+const Feed = ({ username }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      await axios
-        .get(`${SERVER_URL}/api/posts/feed/650312e0f0c15b5bda1ba24a`)
-        .then((response) => {
-          setPosts(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      username
+        ? await axios
+            .get(`${SERVER_URL}/api/posts/profile/${username}`)
+            .then((response) => {
+              setPosts(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+        : await axios
+            .get(`${SERVER_URL}/api/posts/feed/650350543c7bedf7f235beb0`)
+            .then((response) => {
+              setPosts(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
     };
     fetchPosts();
   }, []);

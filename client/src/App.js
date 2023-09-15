@@ -1,12 +1,11 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NavBar from "./components/NavBar";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile/Profile";
 import Authentication from "./pages/Login";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import axios from "axios";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
