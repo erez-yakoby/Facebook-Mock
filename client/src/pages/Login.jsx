@@ -1,98 +1,95 @@
-import {
-  Box,
-  Button,
-  Modal,
-  TextField,
-  Typography,
-  styled,
-} from "@mui/material";
-import React, { useCallback, useState } from "react";
-import axios from "axios";
-import { SERVER_URL } from "../utils/constants";
-
-const StyledBox = styled(Box)({
-  display: "flex",
-  justifyContent: "center",
-});
-
-const StyledModal = styled(Modal)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
+import { Box, Button, Container, Grid, Link, TextField } from "@mui/material";
+import React, { useContext } from "react";
+import loginCall from "../utils/apiCalls";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isFetching, dispatch } = useContext(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const userCredentials = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    loginCall(userCredentials, dispatch);
+  };
 
-  const login = useCallback(() => {
-    axios
-      .post(`${SERVER_URL}/api/auth/login`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
   return (
     <>
-      <StyledBox>
-        <StyledBox
-          sx={{ flexDirection: "column", justifyContent: "start" }}
-          width={600}
-          height={500}
-          borderRadius={5}
-          p={3}
-          gap={3}
-          border={1}
-          mt={2}
+      <Container component="main" maxWidth="xs">
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <Typography
-            variant="h3"
-            textAlign="center"
-            m={3}
-            sx={{ fontWeight: "bold" }}
-          >
-            Login to Facebook-Mock
-          </Typography>
-
-          <TextField label="Email" type="email" autoComplete="email" />
-          <TextField label="Password" type="password" />
-          <Button variant="contained" textAlign="center" sx={{ mt: 3 }}>
-            Login
-          </Button>
           <Button
             variant="contained"
-            textAlign="center"
-            onClick={() => {
-              setIsModalOpen(true);
-            }}
+            fullWidth
+            size="large"
+            disableFocusRipple
+            disableRipple
+            disableTouchRipple
+            disableElevation
+            sx={{ py: 4, fontSize: 50, borderRadius: 3 }}
           >
-            Sign up
+            Facebook
           </Button>
-        </StyledBox>
-      </StyledBox>
 
-      {/* register modal */}
-      <StyledModal
-        open={isModalOpen}
-        onClose={(e) => setIsModalOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        disableScrollLock={true}
-      >
-        <Box
-          width={500}
-          height={300}
-          bgcolor={"background.default"}
-          color={"text.primary"}
-          borderRadius={5}
-          p={2}
-          m={1}
-        >
-          some box
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              type="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={isFetching}
+            >
+              {isFetching ? "Loading..." : "Sign In"}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
-      </StyledModal>
+      </Container>
     </>
   );
 };

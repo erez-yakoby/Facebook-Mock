@@ -3,10 +3,12 @@ import RightBar from "../components/RightBar";
 import AddPost from "../components/AddPost";
 import { Stack } from "@mui/material";
 import Feed from "../components/Feed";
+import NavBar from "../components/NavBar";
 
 const Home = ({ handleChangeTheme }) => {
   return (
     <>
+      <NavBar />
       <Stack
         className="App"
         direction="row"
@@ -15,7 +17,7 @@ const Home = ({ handleChangeTheme }) => {
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
         <Feed />
-        {/* <RightBar /> */}
+        <RightBar />
       </Stack>
       <AddPost />
     </>

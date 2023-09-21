@@ -6,6 +6,14 @@ const PostSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    username: {
+      type: String,
+      require: true,
+    },
+    userProfileImg: {
+      type: String,
+      default: true,
+    },
     content: {
       type: String,
       require: true,
