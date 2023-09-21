@@ -28,7 +28,7 @@ const Feed = ({ username }) => {
             });
     };
     fetchPosts();
-  }, []);
+  }, [username]);
 
   return (
     <Box p={2} flex={4}>

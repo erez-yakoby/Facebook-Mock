@@ -20,8 +20,6 @@ import {
   styled,
 } from "@mui/material";
 import React, { useState } from "react";
-import axios from "axios";
-import { SERVER_URL } from "../utils/constants";
 const StyledModal = styled(Modal)({
   display: "flex",
   justifyContent: "center",

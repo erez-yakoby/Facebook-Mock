@@ -11,10 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Favorite, FavoriteBorder, MoreVert } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
-import { SERVER_URL } from "../utils/constants";
+
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 

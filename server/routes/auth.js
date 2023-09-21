@@ -32,9 +32,12 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     // check that user exist by email
+    console.log(req.body.email);
     const user = await User.findOne({ email: req.body.email });
-    !user && res.status(400).json("Problem with email or password");
-
+    if (!user) {
+      res.status(400).json("Problem with email or password");
+      return;
+    }
     // check that that the given password matches the encrypted one
     const isValidPassword = await bcrypt.compare(
       req.body.password,

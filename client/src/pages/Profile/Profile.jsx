@@ -4,14 +4,17 @@ import Feed from "../../components/Feed";
 import { Box, Stack, Typography } from "@mui/material";
 import "./profile.css";
 import ProfileRightBar from "./ProfileRightBar";
+import NavBar from "../../components/NavBar";
 const Profile = () => {
   return (
     <>
+      <NavBar />
       <Stack
         className="App"
         direction="row"
         spacing={0}
         justifyContent="space-between"
+        style={{ backgroundColor: "#f0f2f5" }}
       >
         <SideBar showExpanded />
         <Box flex={5}>
