@@ -46,6 +46,7 @@ const StyledUserBox = styled(Box)(({ theme }) => ({
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <AppBar position="sticky">
       <StyledToolBar>
@@ -84,7 +85,7 @@ const NavBar = () => {
             onClick={(e) => setIsOpen(true)}
             sx={{ width: 30, height: 30 }}
             alt="Remy Sharp"
-            src="/images/erez.jpg"
+            src={PF + "erez.jpg"}
           />
         </StyledUserBox>
       </StyledToolBar>
