@@ -1,7 +1,11 @@
-import { Box, ThemeProvider, createTheme } from "@mui/material";
-import { useContext, useState } from "react";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Profile from "./pages/Profile/Profile";
+
+import { useContext, useState } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { Box, ThemeProvider, createTheme } from "@mui/material";
 
 import {
   BrowserRouter as Router,
@@ -9,9 +13,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { AuthContext } from "./context/AuthContext";
 
 function App() {
   const [appTheme, setAppTheme] = useState("light");

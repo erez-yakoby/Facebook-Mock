@@ -40,7 +40,7 @@ const Profile = () => {
             spacing={2}
             justifyContent="space-between"
           >
-            <Feed username="erez" />
+            <Feed profile />
             <ProfileRightBar />
           </Stack>
         </Box>

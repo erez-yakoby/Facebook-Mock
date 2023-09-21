@@ -1,19 +1,37 @@
 import { Box, Button, Container, TextField, Link } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
-  const handleRegister = (e) => {
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [registered, setRegistered] = useState(false);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const userInfo = {
       username: data.get("username"),
       email: data.get("email"),
       password: data.get("password"),
+      passwordConfirmation: data.get("passwordConfirmation"),
     };
-    console.log(userInfo);
+    setPasswordsMatch(userInfo.password === userInfo.passwordConfirmation);
+
+    await axios
+      .post(`${SERVER_URL}/api/auth/register`, userInfo)
+      .then((response) => {
+        setRegistered(true);
+      })
+      .catch((error) => {
+        // TODO: hide error data
+        console.log(error);
+      });
   };
   return (
     <>
+      {registered && <Navigate to="/login" />}
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -72,10 +90,15 @@ const Register = () => {
               required
               fullWidth
               name="passwordConfirmation"
-              label="Password Confirmation"
+              label={
+                passwordsMatch
+                  ? "Password Confirmation"
+                  : "Passwords don't match"
+              }
               type="password"
               id="passwordConfirmation"
               autoComplete="new-password"
+              error={!passwordsMatch}
             />
 
             <Button

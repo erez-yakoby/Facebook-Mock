@@ -39,12 +39,7 @@ const Login = () => {
             Facebook
           </Button>
 
-          <Box
-            component="form"
-            onSubmit={handleLogin}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required

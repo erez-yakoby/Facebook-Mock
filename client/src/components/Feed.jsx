@@ -1,17 +1,19 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Post from "./Post";
 import axios from "axios";
 import { SERVER_URL } from "../utils/constants";
+import { AuthContext } from "../context/AuthContext";
 
-const Feed = ({ username }) => {
+const Feed = ({ profile }) => {
   const [posts, setPosts] = useState([]);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      username
+      profile
         ? await axios
-            .get(`${SERVER_URL}/api/posts/profile/${username}`)
+            .get(`${SERVER_URL}/api/posts/profile/${user.username}`)
             .then((response) => {
               setPosts(response.data);
             })
@@ -19,7 +21,7 @@ const Feed = ({ username }) => {
               console.log(error);
             })
         : await axios
-            .get(`${SERVER_URL}/api/posts/feed/650350543c7bedf7f235beb0`)
+            .get(`${SERVER_URL}/api/posts/feed/${user._id}`)
             .then((response) => {
               setPosts(response.data);
             })
@@ -28,7 +30,7 @@ const Feed = ({ username }) => {
             });
     };
     fetchPosts();
-  }, [username]);
+  }, [user, profile]);
 
   return (
     <Box p={2} flex={4}>
