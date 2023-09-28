@@ -31,8 +31,9 @@ const SideBarButtons = [
 ];
 
 const SideBar = ({ onClickChangeTheme, showExpanded }) => {
+  console.log("side");
   return (
-    <Box p={2} flex={1} sx={{ display: { xs: "none", md: "block" } }}>
+    <Box p={2} pr={4} flex={1} sx={{ display: { xs: "none", md: "block" } }}>
       <Box position="fixed">
         <List>
           {/* generate all buttons but the dark theme button */}

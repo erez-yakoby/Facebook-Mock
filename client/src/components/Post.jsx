@@ -11,11 +11,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Favorite, FavoriteBorder, MoreVert } from "@mui/icons-material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "@emotion/styled";
 
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
+import { AuthContext } from "../context/AuthContext";
 
 const StyledModal = styled(Modal)({
   display: "flex",
@@ -24,18 +27,27 @@ const StyledModal = styled(Modal)({
 });
 
 const Post = ({ post }) => {
+  console.log(post.likes);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const { user } = useContext(AuthContext);
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(post.likes.includes(user._id));
   const [likes, setLikes] = useState(post.likes.length);
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (isLiked) {
       setLikes(likes - 1);
     } else {
       setLikes(likes + 1);
     }
     setIsLiked(!isLiked);
+    await axios
+      .put(`${SERVER_URL}/api/posts/${post._id}/like`, {
+        userId: user._id,
+      })
+      .catch((error) => {
+        console.log("like error");
+      });
   };
 
   return (
@@ -60,15 +72,18 @@ const Post = ({ post }) => {
           title={post.username}
           subheader={format(post.createdAt)}
         />
-        <CardMedia
-          component="img"
-          image={PF + post.imageUrl}
-          height="300"
-          alt="Post image"
-          onClick={(e) =>
-            setDisplayImg({ isDisplayed: true, src: post.imageUrl })
-          }
-        />
+        {post.imageUrl && (
+          <CardMedia
+            component="img"
+            image={PF + post.imageUrl}
+            height="300"
+            alt="Post image"
+            onClick={(e) =>
+              setDisplayImg({ isDisplayed: true, src: post.imageUrl })
+            }
+          />
+        )}
+
         <CardContent>
           <Typography variant="body3" color="text.secondary">
             {post.content}
