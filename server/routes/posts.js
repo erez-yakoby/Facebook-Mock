@@ -31,7 +31,9 @@ router.get("/feed/:userId", async (req, res) => {
     following.push(req.params.userId);
 
     // fetching the filtered posts
-    const relevantPosts = await Post.find({ userId: { $in: following } });
+    const relevantPosts = await Post.find({ userId: { $in: following } }).sort(
+      "-createdAt"
+    );
     res.status(200).json(relevantPosts);
   } catch (error) {
     console.log(error);
@@ -54,6 +56,8 @@ router.get("/profile/:username", async (req, res) => {
 
 // like / dislike post
 router.put("/:id/like", async (req, res) => {
+  console.log("here");
+
   try {
     const post = await Post.findById(req.params.id);
     if (post.likes.includes(req.body.userId)) {

@@ -19,7 +19,11 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import { SERVER_URL } from "../utils/constants";
+import { AuthContext } from "../context/AuthContext";
+
 const StyledModal = styled(Modal)({
   display: "flex",
   justifyContent: "center",
@@ -33,15 +37,26 @@ const UserBox = styled(Box)({
 });
 
 const AddPost = () => {
+  const { user } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const addPost = async () => {
-  //   await axios.post(`${SERVER_URL}/posts`, {
-  //     userId: userId,
-  //     content:
+  const handleAddPost = async (e) => {
+    e.preventDefault();
 
-  //   })
-  // }
+    const data = new FormData(e.currentTarget);
+    const postData = {
+      content: data.get("content"),
+    };
+    await axios
+      .post(`${SERVER_URL}/api/posts/`, {
+        content: postData.content,
+        userId: user._id,
+      })
+      .catch((error) => {
+        console.log("add post error");
+      });
+  };
 
   return (
     <>
@@ -63,6 +78,8 @@ const AddPost = () => {
         disableScrollLock={true}
       >
         <Box
+          component="form"
+          onSubmit={handleAddPost}
           width={500}
           height={300}
           bgcolor={"background.default"}
@@ -75,8 +92,8 @@ const AddPost = () => {
             Create post
           </Typography>
           <UserBox>
-            <Avatar src="/images/erez.jpg"> </Avatar>
-            <Typography variant="h7">Erez Yakoby</Typography>
+            <Avatar src={PF + user.profileImg}> </Avatar>
+            <Typography variant="h7">{user.username}</Typography>
           </UserBox>
           <TextField
             label="What's on your mind?"
@@ -84,8 +101,10 @@ const AddPost = () => {
             maxRows={4}
             variant="standard"
             fullWidth
-            rows={3}
             sx={{ mt: 2, mb: 2 }}
+            required
+            autoFocus
+            name="content"
           />
           <Box mb={1}>
             <IconButton color="info">
@@ -102,7 +121,7 @@ const AddPost = () => {
             </IconButton>
           </Box>
           <ButtonGroup variant="contained" fullWidth>
-            <Button>Post</Button>
+            <Button type="submit">Post</Button>
             <Button sx={{ width: 70 }}>
               <CalendarMonth />
             </Button>

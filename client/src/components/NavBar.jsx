@@ -45,6 +45,7 @@ const StyledUserBox = styled(Box)(({ theme }) => ({
 }));
 
 const NavBar = () => {
+  console.log("nav");
   const [isOpen, setIsOpen] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (

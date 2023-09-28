@@ -14,6 +14,7 @@ import {
 import React from "react";
 
 const RightBar = () => {
+  console.log("right");
   return (
     <Box p={2} flex={2} sx={{ display: { xs: "none", sm: "block" } }}>
       <Box position="fixed">
@@ -22,7 +23,7 @@ const RightBar = () => {
         </Typography>
         <AvatarGroup max={6} sx={{ display: "flex", justifyContent: "start" }}>
           {onlineFriends.map((friend) => (
-            <Avatar alt={friend.username} src={friend.img} />
+            <Avatar alt={friend.username} src={friend.img} key={friend.key} />
           ))}
         </AvatarGroup>
         <br />
@@ -51,30 +52,28 @@ const RightBar = () => {
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
           {conversations.map((conversation) => (
-            <>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar src={conversation.userProfileImg} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={conversation.title}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                      >
-                        {conversation.username}
-                      </Typography>
-                      {" - " + conversation.lastMessage}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-            </>
+            <ListItem alignItems="flex-start" key={conversation.id}>
+              <ListItemAvatar>
+                <Avatar src={conversation.userProfileImg} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={conversation.title}
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: "inline" }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {conversation.username}
+                    </Typography>
+                    {" - " + conversation.lastMessage}
+                  </React.Fragment>
+                }
+              />
+              {/* <Divider variant="inset" component="li" /> */}
+            </ListItem>
           ))}
         </List>
       </Box>
@@ -86,38 +85,47 @@ const onlineFriends = [
   {
     username: "user 1",
     img: "/images/shaked.jpg",
+    key: 1,
   },
   {
     username: "user 2",
     img: "/images/erez.jpg",
+    key: 2,
   },
   {
     username: "user 3",
     img: "/images/shaked.jpg",
+    key: 3,
   },
   {
     username: "user 4",
     img: "/images/erez.jpg",
+    key: 4,
   },
   {
     username: "user 5",
     img: "/images/shaked.jpg",
+    key: 5,
   },
   {
     username: "user 6",
     img: "/images/erez.jpg",
+    key: 6,
   },
   {
     username: "user 7",
     img: "/images/shaked.jpg",
+    key: 7,
   },
   {
     username: "user 8",
     img: "/images/erez.jpg",
+    key: 8,
   },
   {
     username: "user 9",
     img: "/images/shaked.jpg",
+    key: 1,
   },
 ];
 
@@ -135,6 +143,7 @@ const itemData = [
 
 const conversations = [
   {
+    id: 1,
     username: "user 1",
     userProfileImg: "images/DSCN3087.JPG",
     title: "Conversation Title 1",
@@ -142,6 +151,7 @@ const conversations = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum laboriosam",
   },
   {
+    id: 2,
     username: "user 2",
     userProfileImg: "images/DSCN3117.JPG",
     title: "Conversation Title 2",
@@ -149,6 +159,7 @@ const conversations = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum laboriosam",
   },
   {
+    id: 3,
     username: "user 3",
     userProfileImg: "images/DSCN3121.JPG",
     title: "Conversation Title 3",
