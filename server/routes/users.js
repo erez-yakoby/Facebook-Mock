@@ -56,9 +56,10 @@ router.delete("/:id", async (req, res) => {
 });
 
 // get a user
-router.get("/:id", async (req, res) => {
+router.get("/:username", async (req, res) => {
+  console.log("in get user");
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ username: req.params.username });
     !user && res.status(404).json("user not found");
 
     // removing unneccecery attributes

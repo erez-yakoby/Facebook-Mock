@@ -6,7 +6,6 @@ import Feed from "../components/Feed";
 import NavBar from "../components/NavBar";
 
 const Home = ({ handleChangeTheme }) => {
-  console.log("home");
   return (
     <>
       <NavBar />
@@ -20,7 +19,6 @@ const Home = ({ handleChangeTheme }) => {
         <Feed />
         <RightBar />
       </Stack>
-      <AddPost />
     </>
   );
 };
