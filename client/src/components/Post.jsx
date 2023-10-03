@@ -10,7 +10,7 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import { Favorite, FavoriteBorder, MoreVert } from "@mui/icons-material";
+import { Delete, Favorite, FavoriteBorder } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import styled from "@emotion/styled";
 
@@ -26,8 +26,7 @@ const StyledModal = styled(Modal)({
   alignItems: "center",
 });
 
-const Post = ({ post }) => {
-  console.log(post.likes);
+const Post = ({ post, handleDeletePost }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
   const [displayImg, setDisplayImg] = useState({ isDisplayed: false, src: "" });
@@ -45,8 +44,23 @@ const Post = ({ post }) => {
       .put(`${SERVER_URL}/api/posts/${post._id}/like`, {
         userId: user._id,
       })
+
       .catch((error) => {
         console.log("like error");
+      });
+  };
+
+  const handleDeleteClick = async () => {
+    await axios
+      .delete(`${SERVER_URL}/api/posts/${post._id}`, {
+        data: { userId: user._id },
+      })
+      .then(() => {
+        console.log("deleting");
+        handleDeletePost(post._id);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -65,9 +79,11 @@ const Post = ({ post }) => {
             </Link>
           }
           action={
-            <IconButton>
-              <MoreVert />
-            </IconButton>
+            user._id === post.userId && (
+              <IconButton onClick={handleDeleteClick}>
+                <Delete color="error" />
+              </IconButton>
+            )
           }
           title={post.username}
           subheader={format(post.createdAt)}

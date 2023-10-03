@@ -4,17 +4,17 @@ import Post from "./Post";
 import axios from "axios";
 import { SERVER_URL } from "../utils/constants";
 import { AuthContext } from "../context/AuthContext";
+import AddPost from "./AddPost";
 
-const Feed = ({ profile }) => {
+const Feed = ({ username }) => {
   const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
-  console.log("feed");
 
   useEffect(() => {
     const fetchPosts = async () => {
-      profile
+      username
         ? await axios
-            .get(`${SERVER_URL}/api/posts/profile/${user.username}`)
+            .get(`${SERVER_URL}/api/posts/profile/${username}`)
             .then((response) => {
               setPosts(response.data);
             })
@@ -31,12 +31,30 @@ const Feed = ({ profile }) => {
             });
     };
     fetchPosts();
-  }, [user, profile]);
+  }, [user, username]);
+
+  const handleAddPost = (post) => {
+    setPosts([post, ...posts]);
+  };
+
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter((post) => post._id !== postId));
+  };
 
   return (
-    <Box p={2} flex={4}>
+    <Box pl={2} pt={4} flex={4}>
+      {(!username || username === user.username) && (
+        <AddPost handleAddPost={handleAddPost} />
+      )}
+
       {posts.map((post) => {
-        return <Post key={post._id} post={post} />;
+        return (
+          <Post
+            key={post._id}
+            post={post}
+            handleDeletePost={handleDeletePost}
+          />
+        );
       })}
     </Box>
   );
