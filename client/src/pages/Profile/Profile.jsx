@@ -53,9 +53,6 @@ const Profile = () => {
               <Typography variant="h5" mt={15} textAlign="center">
                 {user.username}
               </Typography>
-              {/* <Typography variant="h6" textAlign="center">
-                User Name
-              </Typography> */}
             </div>
           </Box>
           <Stack

@@ -46,7 +46,9 @@ router.get("/profile/:username", async (req, res) => {
   // TODO: add index on userId in Post schema
   try {
     // fetching the user's posts
-    const profilePosts = await Post.find({ username: req.params.username });
+    const profilePosts = await Post.find({
+      username: req.params.username,
+    }).sort("-createdAt");
     res.status(200).json(profilePosts);
   } catch (error) {
     console.log(error);

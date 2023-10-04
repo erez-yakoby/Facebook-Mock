@@ -25,9 +25,9 @@ const SideBar = ({ onClickChangeTheme, showExpanded }) => {
   // each button in the side bar will have an icon, a text and an href to the relevant page.
   const SideBarButtons = [
     { ButtonIcon: Home, buttonText: "Homepage", href: "/" },
-    { ButtonIcon: Article, buttonText: "Pages", href: "/pages" },
-    { ButtonIcon: Group, buttonText: "Groups", href: "/groups" },
-    { ButtonIcon: Storefront, buttonText: "Marketplace", href: "/marketplace" },
+    // { ButtonIcon: Article, buttonText: "Pages", href: "/pages" },
+    // { ButtonIcon: Group, buttonText: "Groups", href: "/groups" },
+    // { ButtonIcon: Storefront, buttonText: "Marketplace", href: "/marketplace" },
     { ButtonIcon: Person, buttonText: "Friends", href: "/friends" },
     { ButtonIcon: Settings, buttonText: "Settings", href: "/settings" },
     {

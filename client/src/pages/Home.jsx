@@ -14,6 +14,7 @@ const Home = ({ handleChangeTheme }) => {
         direction="row"
         spacing={2}
         justifyContent="space-between"
+        bgcolor="#f0f2f5"
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
         <Feed />
