@@ -9,13 +9,10 @@ import {
 } from "@mui/material";
 import {
   Home,
-  Article,
-  Group,
-  Storefront,
-  Person,
   ModeNight,
   Settings,
   AccountBox,
+  People,
 } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -25,16 +22,16 @@ const SideBar = ({ onClickChangeTheme, showExpanded }) => {
   // each button in the side bar will have an icon, a text and an href to the relevant page.
   const SideBarButtons = [
     { ButtonIcon: Home, buttonText: "Homepage", href: "/" },
-    { ButtonIcon: Article, buttonText: "Pages", href: "/pages" },
-    { ButtonIcon: Group, buttonText: "Groups", href: "/groups" },
-    { ButtonIcon: Storefront, buttonText: "Marketplace", href: "/marketplace" },
-    { ButtonIcon: Person, buttonText: "Friends", href: "/friends" },
+    // { ButtonIcon: Article, buttonText: "Pages", href: "/pages" },
+    // { ButtonIcon: Group, buttonText: "Groups", href: "/groups" },
+    // { ButtonIcon: Storefront, buttonText: "Marketplace", href: "/marketplace" },
     { ButtonIcon: Settings, buttonText: "Settings", href: "/settings" },
     {
       ButtonIcon: AccountBox,
       buttonText: "Profile",
       href: `/profile/${user.username}`,
     },
+    { ButtonIcon: People, buttonText: "Users", href: `/allusers` },
   ];
 
   console.log("side");

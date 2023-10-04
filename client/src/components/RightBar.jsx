@@ -2,7 +2,6 @@ import {
   Avatar,
   AvatarGroup,
   Box,
-  Divider,
   ImageList,
   ImageListItem,
   List,
@@ -48,9 +47,7 @@ const RightBar = () => {
         <Typography variant="h6" fontWeight={100}>
           Latest Conversations
         </Typography>
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
+        <List sx={{ width: "100%", maxWidth: 360 }}>
           {conversations.map((conversation) => (
             <ListItem alignItems="flex-start" key={conversation.id}>
               <ListItemAvatar>

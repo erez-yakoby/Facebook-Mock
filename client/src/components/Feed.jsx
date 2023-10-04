@@ -7,8 +7,8 @@ import { AuthContext } from "../context/AuthContext";
 import AddPost from "./AddPost";
 
 const Feed = ({ username }) => {
-  const [posts, setPosts] = useState([]);
   const { user } = useContext(AuthContext);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,7 +31,7 @@ const Feed = ({ username }) => {
             });
     };
     fetchPosts();
-  }, [user, username]);
+  }, [user._id, username]);
 
   const handleAddPost = (post) => {
     setPosts([post, ...posts]);

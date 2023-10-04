@@ -2,11 +2,16 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-// get user
-// delete user
-// follow user
-// unfollow user
-// update user
+// get all users
+router.get("/all", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.log("error");
+    res.send("error");
+  }
+});
 
 // update user
 router.put("/:id", async (req, res) => {

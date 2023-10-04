@@ -64,68 +64,74 @@ const Post = ({ post, handleDeletePost }) => {
       });
   };
 
+  const getPostCard = (height) => {
+    return (
+      <>
+        <Card sx={{ mb: 5 }}>
+          <CardHeader
+            avatar={
+              <Link to={`/profile/${post.username}`}>
+                <Avatar
+                  sx={{ bgcolor: "lightblue" }}
+                  src={
+                    post.userProfileImg
+                      ? PF + post.userProfileImg
+                      : PF + "noAvatar.png"
+                  }
+                >
+                  R
+                </Avatar>
+              </Link>
+            }
+            action={
+              user._id === post.userId && (
+                <IconButton onClick={handleDeleteClick}>
+                  <Delete color="error" />
+                </IconButton>
+              )
+            }
+            title={post.username}
+            subheader={format(post.createdAt)}
+          />
+          {post.imageUrl && (
+            <CardMedia
+              component="img"
+              image={PF + post.imageUrl}
+              height={height}
+              alt="Post image"
+              onClick={(e) =>
+                setDisplayImg({ isDisplayed: true, src: post.imageUrl })
+              }
+            />
+          )}
+
+          <CardContent>
+            <Typography variant="body3" color="text.secondary">
+              {post.content}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<Favorite color="error" />}
+              checked={isLiked}
+              onClick={handleLikeClick}
+            />
+            <Typography ml={1}> {likes} people liked</Typography>
+          </CardActions>
+        </Card>
+      </>
+    );
+  };
   return (
     <>
-      <Card sx={{ mb: 5 }}>
-        <CardHeader
-          avatar={
-            <Link to={`profile/${post.username}`}>
-              <Avatar
-                sx={{ bgcolor: "lightblue" }}
-                src={PF + post.userProfileImg}
-              >
-                R
-              </Avatar>
-            </Link>
-          }
-          action={
-            user._id === post.userId && (
-              <IconButton onClick={handleDeleteClick}>
-                <Delete color="error" />
-              </IconButton>
-            )
-          }
-          title={post.username}
-          subheader={format(post.createdAt)}
-        />
-        {post.imageUrl && (
-          <CardMedia
-            component="img"
-            image={PF + post.imageUrl}
-            height="300"
-            alt="Post image"
-            onClick={(e) =>
-              setDisplayImg({ isDisplayed: true, src: post.imageUrl })
-            }
-          />
-        )}
-
-        <CardContent>
-          <Typography variant="body3" color="text.secondary">
-            {post.content}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <Checkbox
-            icon={<FavoriteBorder />}
-            checkedIcon={<Favorite color="error" />}
-            checked={isLiked}
-            onClick={handleLikeClick}
-          />
-          <Typography ml={1}> {likes} people liked</Typography>
-        </CardActions>
-      </Card>
+      {getPostCard("300")}
       <StyledModal
         open={displayImg.isDisplayed}
         onClose={(e) => setDisplayImg({ isDisplayed: false, src: "" })}
         disableScrollLock={true}
       >
-        <img
-          src={PF + displayImg.src}
-          loading="lazy"
-          width="50%"
-          alt="postImage"
-        />
+        {getPostCard("450")}
       </StyledModal>
     </>
   );

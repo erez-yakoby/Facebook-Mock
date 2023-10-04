@@ -46,16 +46,17 @@ const Profile = () => {
             />
             <img
               className="profileUserImg"
-              src={"/images/" + user.profileImg}
+              src={
+                user.profileImg
+                  ? "/images/" + user.profileImg
+                  : "/images/noAvatar.png"
+              }
               alt=""
             />
             <div>
               <Typography variant="h5" mt={15} textAlign="center">
                 {user.username}
               </Typography>
-              {/* <Typography variant="h6" textAlign="center">
-                User Name
-              </Typography> */}
             </div>
           </Box>
           <Stack

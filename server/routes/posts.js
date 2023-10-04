@@ -46,7 +46,9 @@ router.get("/profile/:username", async (req, res) => {
   // TODO: add index on userId in Post schema
   try {
     // fetching the user's posts
-    const profilePosts = await Post.find({ username: req.params.username });
+    const profilePosts = await Post.find({
+      username: req.params.username,
+    }).sort("-createdAt");
     res.status(200).json(profilePosts);
   } catch (error) {
     console.log(error);
@@ -56,8 +58,6 @@ router.get("/profile/:username", async (req, res) => {
 
 // like / dislike post
 router.put("/:id/like", async (req, res) => {
-  console.log("here");
-
   try {
     const post = await Post.findById(req.params.id);
     if (post.likes.includes(req.body.userId)) {
