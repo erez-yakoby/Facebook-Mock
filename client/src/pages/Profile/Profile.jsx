@@ -46,7 +46,11 @@ const Profile = () => {
             />
             <img
               className="profileUserImg"
-              src={"/images/" + user.profileImg}
+              src={
+                user.profileImg
+                  ? "/images/" + user.profileImg
+                  : "/images/noAvatar.png"
+              }
               alt=""
             />
             <div>

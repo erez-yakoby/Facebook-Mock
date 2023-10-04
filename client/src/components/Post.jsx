@@ -73,7 +73,11 @@ const Post = ({ post, handleDeletePost }) => {
               <Link to={`/profile/${post.username}`}>
                 <Avatar
                   sx={{ bgcolor: "lightblue" }}
-                  src={PF + post.userProfileImg}
+                  src={
+                    post.userProfileImg
+                      ? PF + post.userProfileImg
+                      : PF + "noAvatar.png"
+                  }
                 >
                   R
                 </Avatar>

@@ -92,7 +92,11 @@ const Users = () => {
                       <Link to={`/profile/${user.username}`}>
                         <Avatar
                           sx={{ bgcolor: "lightblue", height: 70, width: 70 }}
-                          src={PF + user.profileImg}
+                          src={
+                            user.profileImg
+                              ? PF + user.profileImg
+                              : PF + "noAvatar.png"
+                          }
                         >
                           R
                         </Avatar>

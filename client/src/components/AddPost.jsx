@@ -78,7 +78,10 @@ const AddPost = ({ handleAddPost }) => {
       </Typography>
       <UserBox>
         <Link to={`profile/${user.username}`}>
-          <Avatar sx={{ bgcolor: "lightblue" }} src={PF + user.profileImg} />
+          <Avatar
+            sx={{ bgcolor: "lightblue" }}
+            src={user.profileImg ? PF + user.profileImg : PF + "noAvatar.png"}
+          />
         </Link>
         <Typography variant="h7">{user.username}</Typography>
       </UserBox>

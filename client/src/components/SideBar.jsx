@@ -9,10 +9,6 @@ import {
 } from "@mui/material";
 import {
   Home,
-  Article,
-  Group,
-  Storefront,
-  Person,
   ModeNight,
   Settings,
   AccountBox,
@@ -29,7 +25,6 @@ const SideBar = ({ onClickChangeTheme, showExpanded }) => {
     // { ButtonIcon: Article, buttonText: "Pages", href: "/pages" },
     // { ButtonIcon: Group, buttonText: "Groups", href: "/groups" },
     // { ButtonIcon: Storefront, buttonText: "Marketplace", href: "/marketplace" },
-    { ButtonIcon: Person, buttonText: "Friends", href: "/friends" },
     { ButtonIcon: Settings, buttonText: "Settings", href: "/settings" },
     {
       ButtonIcon: AccountBox,

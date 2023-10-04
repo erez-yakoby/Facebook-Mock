@@ -4,6 +4,7 @@ import AddPost from "../components/AddPost";
 import { Stack } from "@mui/material";
 import Feed from "../components/Feed";
 import NavBar from "../components/NavBar";
+import { useEffect } from "react";
 
 const Home = ({ handleChangeTheme }) => {
   return (
@@ -17,7 +18,6 @@ const Home = ({ handleChangeTheme }) => {
         bgcolor="#f0f2f5"
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
-
         <Feed />
         <RightBar />
       </Stack>
