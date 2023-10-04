@@ -17,6 +17,7 @@ const Home = ({ handleChangeTheme }) => {
         bgcolor="#f0f2f5"
       >
         <SideBar onClickChangeTheme={handleChangeTheme} showExpanded />
+
         <Feed />
         <RightBar />
       </Stack>

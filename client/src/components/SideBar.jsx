@@ -16,6 +16,7 @@ import {
   ModeNight,
   Settings,
   AccountBox,
+  People,
 } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -35,6 +36,7 @@ const SideBar = ({ onClickChangeTheme, showExpanded }) => {
       buttonText: "Profile",
       href: `/profile/${user.username}`,
     },
+    { ButtonIcon: People, buttonText: "Users", href: `/allusers` },
   ];
 
   console.log("side");

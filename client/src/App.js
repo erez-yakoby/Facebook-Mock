@@ -13,6 +13,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Users from "./pages/Users";
 
 function App() {
   const [appTheme, setAppTheme] = useState("light");
@@ -50,6 +51,7 @@ function App() {
             />
             <Route exact path="/register" element={<Register />} />
             <Route path="/profile/:username" element={<Profile />} />
+            <Route exact path="/allusers" element={<Users />} />
           </Routes>
         </Router>
       </Box>

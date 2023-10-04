@@ -70,7 +70,7 @@ const Post = ({ post, handleDeletePost }) => {
         <Card sx={{ mb: 5 }}>
           <CardHeader
             avatar={
-              <Link to={`profile/${post.username}`}>
+              <Link to={`/profile/${post.username}`}>
                 <Avatar
                   sx={{ bgcolor: "lightblue" }}
                   src={PF + post.userProfileImg}
